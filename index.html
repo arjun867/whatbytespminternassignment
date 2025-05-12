@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summarize AI - AI-Powered Meeting & Email Assistant</title>
-    <meta name="description" content="Summarize AI helps you transcribe, summarize, and analyze meetings and emails in real-time. Boost your productivity today!">
+    <meta name="description" content="Summarize AI helps you transcribe, summarize, analyze meetings and emails, and streamline your workflow in real-time.">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,6 +28,7 @@
             --bg-footer-gray: #ebebeb;
             --border-color: #e0e0e0;
             --navbar-height: 70px; /* Define navbar height */
+            --star-color: #ffc107; /* Gold for stars */
         }
 
         /* Basic Reset & Global Styles */
@@ -100,6 +101,7 @@
             cursor: pointer;
             border: none;
             text-align: center;
+            white-space: nowrap;
         }
 
         .btn-primary {
@@ -107,7 +109,7 @@
             color: var(--bg-white);
         }
         .btn-primary:hover {
-            background-color: #5a52e0; /* Slightly darker purple */
+            background-color: #5a52e0;
         }
 
         .btn-secondary {
@@ -127,12 +129,15 @@
             font-size: 1.1rem;
         }
         .btn-cta:hover {
-            background-color: #00b090; /* Slightly darker teal */
+            background-color: #00b090;
         }
 
         /* Section Padding */
         section {
-            padding: 60px 0;
+            padding: 80px 0; /* Increased padding for better separation */
+        }
+        section:nth-of-type(even) {
+             background-color: var(--bg-light-gray); /* Alternate background colors */
         }
 
         /* --- Navbar --- */
@@ -169,24 +174,33 @@
         }
 
         .nav-links li {
-            margin-left: 25px;
+            margin-left: 20px; /* Slightly reduce spacing */
         }
 
         .nav-links li a {
             font-family: 'Open Sans', sans-serif;
-            /* color: var(--text-light); */
+            color: var(--text-light);
             font-weight: 600;
             padding: 5px 0;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            border-bottom: 2px solid transparent; /* Add transparent border for smooth transition */
         }
         .nav-links li a:hover,
-        .nav-links li a.active { /* You can add 'active' class via JS if needed for current section */
+        .nav-links li a.active {
             color: var(--primary-color);
             border-bottom: 2px solid var(--primary-color);
         }
+         .nav-links li a.btn { /* Style button in nav differently */
+             padding: 0.6em 1.2em;
+             border-bottom: none;
+             color: white !important; /* Override link color */
+         }
+         .nav-links li a.btn:hover {
+             border-bottom: none;
+         }
 
         .mobile-menu-toggle {
-            display: none; /* Hidden by default, shown on mobile */
+            display: none;
             font-size: 1.8rem;
             color: var(--primary-color);
             background: none;
@@ -197,9 +211,9 @@
         /* --- Hero Section --- */
         #hero {
             background-color: var(--bg-white);
-            padding-top: 60px; /* Adjusted padding, body already has navbar height */
+            padding-top: 60px;
             padding-bottom: 80px;
-            min-height: calc(100vh - var(--navbar-height)); /* Optional: make hero take full viewport height */
+            min-height: calc(100vh - var(--navbar-height));
             display: flex;
             align-items: center;
         }
@@ -207,36 +221,20 @@
         .hero-content-wrapper {
             display: flex;
             align-items: center;
-            gap: 40px;
+            gap: 50px; /* Increased gap */
         }
 
         .hero-image {
             flex: 1;
-            text-align: center; /* Helps if icon is inline-block */
-            display: flex; /* For better centering */
-            justify-content: center; /* Horizontal centering */
-            align-items: center; /* Vertical centering */
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .hero-main-icon {
-            font-size: 10rem; /* Adjust size as needed, e.g., 8rem, 12rem, 150px */
-            color: var(--primary-color); /* Use your primary tech color */
-            /* Add some margin if needed, e.g., margin-bottom for spacing on mobile when stacked */
-        }
-
-
-        /* --- Hero Section --- */
-        #hero {
-            background-color: var(--bg-white);
-            padding-top: 60px;
-            padding-bottom: 80px;
-            min-height: calc(100vh - var(--navbar-height));
-            display: flex; /* This is already here, ensures hero-content-wrapper can use flex properties */
-            align-items: center; /* This is already here */
-        }
-        .hero-image img {
-            max-width: 500px; /* Control max image size */
-            border-radius: 10px;
+            font-size: 12rem; /* Slightly larger */
+            color: var(--primary-color);
         }
 
         .hero-text {
@@ -246,23 +244,23 @@
             color: var(--primary-color);
         }
         .hero-text p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5em;
+            font-size: 1.15rem; /* Slightly larger */
+            margin-bottom: 1.8em;
         }
         .hero-buttons .btn {
             margin-right: 15px;
-            margin-bottom: 10px; /* For stacking on mobile */
+            margin-bottom: 10px;
         }
 
-
-        /* --- Features Section --- */
+        /* --- Features Section (Updated) --- */
         #features {
-            background-color: var(--bg-light-gray);
+             background-color: var(--bg-light-gray);
         }
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            /* Adjust grid for potentially 14 items */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px; /* Increased gap */
             margin-top: 40px;
         }
         .feature-item {
@@ -270,28 +268,33 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.07);
-            text-align: left;
+            display: flex; /* Use flex for icon alignment */
+            align-items: flex-start; /* Align icon top */
+            gap: 20px; /* Space between icon and text */
         }
         .feature-item i {
             font-size: 1.8rem;
             color: var(--secondary-color);
-            margin-right: 15px;
-            vertical-align: middle;
-            width: 30px; /* Ensure consistent spacing */
+            margin-top: 5px; /* Fine-tune vertical alignment */
+            flex-shrink: 0; /* Prevent icon from shrinking */
+            width: 30px;
+            text-align: center;
+        }
+        .feature-item div { /* Wrap text in a div */
+             flex: 1;
         }
         .feature-item h3 {
-            display: inline;
-            vertical-align: middle;
-            margin-bottom: 0; /* Reset as it's inline */
+            margin-bottom: 0.5em;
             font-size: 1.3rem;
+            line-height: 1.3;
         }
         .feature-item p {
-            margin-top: 15px;
+            margin-bottom: 0;
             font-size: 0.95rem;
-            padding-left: 45px; /* Align with text next to icon */
+            line-height: 1.6;
         }
 
-        /* --- Benefits Section --- */
+        /* --- Benefits Section (Keep as is) --- */
         #benefits {
             background-color: var(--bg-white);
         }
@@ -317,13 +320,14 @@
             font-size: 1.2rem;
         }
 
-        /* --- Use Case Scenarios Section --- */
+        /* --- Use Case Scenarios Section (Updated) --- */
         #use-cases {
             background-color: var(--bg-light-gray);
         }
         .use-cases-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+             /* Using 2 columns for better readability with more text */
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
             margin-top: 40px;
         }
@@ -331,27 +335,192 @@
             background-color: var(--bg-white);
             padding: 30px;
             border-radius: 8px;
-            text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.07);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+             display: flex; /* Use flex */
+             flex-direction: column; /* Stack content */
+             height: 100%; /* Make cards equal height in a row */
         }
-        .use-case-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
+         .use-case-card:hover {
+             transform: translateY(-5px);
+             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+         }
         .use-case-card i {
             font-size: 2.5rem;
             color: var(--primary-color);
             margin-bottom: 20px;
+            align-self: center; /* Center icon */
         }
         .use-case-card h4 {
             margin-bottom: 10px;
             font-size: 1.25rem;
+            text-align: center;
         }
         .use-case-card p {
-            font-size: 0.9rem;
+            font-size: 0.95rem; /* Slightly larger text */
             line-height: 1.6;
+            flex-grow: 1; /* Allow text to take remaining space */
+            margin-bottom: 0; /* Remove default bottom margin */
+             text-align: center; /* Center text */
         }
+
+        /* --- Testimonials Section (New) --- */
+        #testimonials {
+            background-color: var(--bg-white);
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .testimonial-card {
+            background-color: var(--bg-light-gray); /* Light gray background */
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 5px solid var(--secondary-color); /* Accent border */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            position: relative;
+        }
+         .testimonial-card::before { /* Optional quote icon */
+            content: '\f10d'; /* Font Awesome quote-left */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            opacity: 0.3;
+        }
+        .testimonial-quote {
+            font-style: italic;
+            margin-bottom: 20px;
+            padding-left: 30px; /* Indent text from quote icon */
+            color: var(--text-light);
+        }
+        .testimonial-author {
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            color: var(--heading-color);
+        }
+        .testimonial-author span {
+            display: block;
+            font-weight: 400;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 3px;
+        }
+        .testimonial-stars {
+             margin-top: 15px;
+             color: var(--star-color);
+         }
+         .testimonial-stars i {
+             margin-right: 2px;
+         }
+
+        /* --- Pricing Section (New) --- */
+        #pricing {
+            background-color: var(--bg-light-gray);
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            align-items: stretch; /* Make cards stretch to equal height */
+        }
+        .pricing-card {
+            background-color: var(--bg-white);
+            padding: 40px 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            border: 2px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .pricing-card:hover,
+        .pricing-card.popular {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            border-color: var(--primary-color);
+        }
+        .pricing-card.popular .plan-name {
+             color: var(--primary-color);
+         }
+        .plan-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        .plan-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-light);
+        }
+        .plan-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            min-height: 40px; /* Ensure space even if description is short */
+        }
+        .plan-features {
+            text-align: left;
+            margin-bottom: 30px;
+            flex-grow: 1; /* Allow features list to push button down */
+        }
+        .plan-features li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        .plan-features li::before {
+            content: '\f00c'; /* Check icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+            top: 4px;
+        }
+        .plan-features li.disabled::before {
+            content: '\f00d'; /* Cross icon */
+            color: #ccc;
+        }
+         .plan-features li.disabled {
+             color: #aaa;
+             text-decoration: line-through;
+         }
+
+        .pricing-card .btn {
+            width: 100%;
+            margin-top: auto; /* Push button to bottom */
+        }
+
+        /* --- Contact Section (New - Button) --- */
+        #contact {
+             background-color: var(--bg-white);
+             text-align: center;
+        }
+         #contact h2 {
+             margin-bottom: 0.5em;
+         }
+         #contact p {
+             max-width: 600px;
+             margin: 0 auto 30px auto;
+             font-size: 1.1rem;
+         }
+
 
         /* --- Final CTA Section --- */
         #cta {
@@ -377,7 +546,7 @@
             background-color: var(--bg-footer-gray);
             color: var(--text-light);
             text-align: center;
-            padding: 25px 0;
+            padding: 30px 0; /* Increased padding */
             font-size: 0.9rem;
         }
         footer p {
@@ -388,96 +557,145 @@
         @media (max-width: 992px) {
             h1 { font-size: 2.4rem; }
             h2 { font-size: 2rem; }
+            section { padding: 60px 0; }
 
             .hero-content-wrapper {
                 gap: 30px;
             }
-            .hero-image img {
-                max-width: 400px;
+             .hero-main-icon {
+                 font-size: 10rem;
+             }
+             .nav-links li {
+                 margin-left: 15px; /* Adjust nav spacing */
+             }
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 30px;
             }
-            .hero-main-icon {
-                font-size: 8rem; /* Slightly smaller icon for medium screens */
-            }
+             .use-cases-grid {
+                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+             }
         }
 
         @media (max-width: 768px) {
-            :root { --navbar-height: 60px; } /* Slightly smaller navbar on mobile */
+            :root { --navbar-height: 60px; }
             body { padding-top: var(--navbar-height); }
 
             .nav-logo a { font-size: 1.6rem; }
             .nav-links {
-                display: none; /* Hide normal links */
+                display: none;
                 flex-direction: column;
                 position: absolute;
                 top: var(--navbar-height);
                 left: 0;
                 width: 100%;
                 background-color: var(--bg-white);
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1); /* Stronger shadow */
                 padding: 15px 0;
+                max-height: calc(100vh - var(--navbar-height)); /* Limit height */
+                overflow-y: auto; /* Allow scrolling if needed */
             }
             .nav-links.active {
-                display: flex; /* Show when active */
+                display: flex;
             }
             .nav-links li {
-                margin: 10px 0;
-                text-align: center;
+                margin: 0;
                 width: 100%;
             }
             .nav-links li a {
-                padding: 10px 15px;
+                padding: 12px 20px; /* Increase padding */
                 display: block;
+                text-align: center;
+                border-bottom: 1px solid var(--border-color); /* Add separator */
+                margin-left: 0 !important; /* Override margin */
             }
+             .nav-links li:last-child a {
+                 border-bottom: none; /* Remove last border */
+             }
             .nav-links li a:hover,
             .nav-links li a.active {
-                border-bottom: none; /* Remove border for mobile links, color is enough */
+                border-bottom: 1px solid var(--border-color); /* Keep separator on hover */
                 background-color: var(--bg-light-gray);
+                 color: var(--primary-color);
             }
+             .nav-links li a.btn {
+                 margin: 15px 20px !important; /* Add margin around button */
+                 padding: 0.8em 1.5em;
+                 width: auto; /* Don't make button full width */
+                 display: inline-block; /* Align center */
+                 border-bottom: none; /* No border for button */
+             }
+             .nav-links li a.btn:hover {
+                 background-color: #5a52e0; /* Keep hover effect */
+                 color: white !important;
+             }
+
             .mobile-menu-toggle {
-                display: block; /* Show hamburger */
+                display: block;
             }
 
             h1 { font-size: 2rem; }
             h2 { font-size: 1.8rem; }
-            section { padding: 40px 0; }
-            #hero { padding-top: 40px; padding-bottom: 60px; min-height: auto; } /* Adjust hero padding again */
+            section { padding: 50px 0; }
+            #hero { padding-top: 40px; padding-bottom: 60px; min-height: auto; }
 
 
             .hero-content-wrapper {
-                flex-direction: column-reverse; /* Text above icon on mobile */
+                flex-direction: column-reverse;
                 text-align: center;
             }
-            .hero-image {
-                margin-bottom: 30px; /* Add space between icon and text when stacked */
-            }
-            .hero-main-icon {
-                font-size: 7rem; /* Smaller for mobile */
-            }
+             .hero-main-icon {
+                 font-size: 8rem;
+                 margin-bottom: 30px;
+             }
             .hero-text {
-                margin-bottom: 30px;
+                margin-bottom: 0; /* Removed extra margin */
             }
             .hero-buttons {
                 text-align: center;
+                margin-top: 20px; /* Add margin top */
             }
             .hero-buttons .btn {
-                margin-right: 5px;
-                margin-left: 5px;
-            }
-            .hero-image img {
-                max-width: 300px; /* Further reduce hero image size */
-                margin: 20px auto 0 auto;
+                margin: 5px;
             }
 
+
             .features-grid {
-                grid-template-columns: 1fr; /* Stack features */
+                grid-template-columns: 1fr;
+                gap: 25px;
             }
             .feature-item {
                 padding: 25px;
+                gap: 15px;
+            }
+             .feature-item h3 {
+                 font-size: 1.2rem;
+             }
+
+             .use-cases-grid {
+                 grid-template-columns: 1fr;
+                 gap: 25px;
+             }
+            .use-case-card {
+                padding: 25px;
             }
 
-            .use-cases-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            }
+             .testimonials-grid {
+                 grid-template-columns: 1fr;
+                 gap: 25px;
+             }
+             .pricing-grid {
+                 grid-template-columns: 1fr;
+                 gap: 25px;
+             }
+             .pricing-card {
+                 padding: 30px 25px;
+             }
+             .pricing-card:hover,
+             .pricing-card.popular {
+                 transform: translateY(0); /* Disable hover transform on mobile */
+             }
+
              #cta h2 {
                 font-size: 1.8rem;
             }
@@ -490,20 +708,20 @@
             html { font-size: 15px; }
             h1 { font-size: 1.8rem; }
             h2 { font-size: 1.6rem; }
+             section { padding: 40px 0; }
+
             .btn {
-                padding: 0.7em 1.5em;
-                width: 100%;
+                 /* Removed full width buttons globally */
+                /* width: 100%; */
                 margin-bottom: 10px;
             }
             .hero-buttons .btn {
-                margin-right: 0;
-                margin-left: 0;
-            }
-            .hero-buttons .btn:last-child {
-                margin-bottom: 0;
+                 display: block; /* Stack buttons in hero */
+                 margin: 10px auto;
+                 max-width: 250px; /* Limit width */
             }
             .hero-main-icon {
-                font-size: 6rem; /* Even smaller for very small screens */
+                font-size: 7rem; /* Even smaller */
             }
 
             .benefits-list li {
@@ -515,12 +733,10 @@
                 font-size: 1rem;
             }
 
-            .use-cases-grid {
-                grid-template-columns: 1fr; /* Stack use cases */
-            }
-            .use-case-card {
-                padding: 25px;
-            }
+            #contact p {
+                 font-size: 1rem;
+             }
+
             #cta h2 {
                 font-size: 1.6rem;
             }
@@ -536,14 +752,17 @@
     <header class="navbar">
         <div class="container">
             <div class="nav-logo">
-                <a href="#">Summarize AI</a>
+                <a href="#hero">Summarize AI</a>
             </div>
             <nav>
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#features">Features</a></li>
                     <li><a href="#benefits">Benefits</a></li>
                     <li><a href="#use-cases">Use Cases</a></li>
-                    <li><a href="#cta" class="btn btn-primary" style="margin-left: 15px; padding: 0.6em 1.2em; text-decoration-color: white;">Get Started</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#cta" class="btn btn-primary">Get Started</a></li>
                 </ul>
             </nav>
             <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
@@ -557,15 +776,13 @@
         <div class="container">
             <div class="hero-content-wrapper">
                 <div class="hero-image">
-                    <!-- Icon on the Left -->
                     <i class="fas fa-users-cog hero-main-icon"></i>
                 </div>
                 <div class="hero-text">
-                    <!-- Text on the Right -->
                     <h1>Meet Summarize AI</h1>
                     <p>Your intelligent assistant for real-time meeting transcription, insightful summarization, and enhanced productivity. Focus on the conversation, let us handle the notes.</p>
                     <div class="hero-buttons">
-                        <a href="#cta" class="btn btn-primary">Get Started</a>
+                        <a href="#cta" class="btn btn-primary">Get Started Free</a>
                         <a href="#features" class="btn btn-secondary">Learn More</a>
                     </div>
                 </div>
@@ -573,56 +790,128 @@
         </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- Features Section (Updated Content) -->
     <section id="features">
         <div class="container">
             <h2>Why Choose Summarize AI?</h2>
             <div class="features-grid">
+                <!-- Feature 1 -->
                 <div class="feature-item">
-                    <i class="fas fa-microphone-alt"></i>
-                    <h3>Real-time Transcription</h3>
-                    <p>Accurate, live transcription of your meetings, so you never miss a word.</p>
+                    <i class="fas fa-stopwatch"></i>
+                    <div>
+                        <h3>Save Time Instantly</h3>
+                        <p>Real-time meeting summarization and automatic action item extraction cut down post-meeting work.</p>
+                    </div>
                 </div>
+                <!-- Feature 2 -->
                 <div class="feature-item">
-                    <i class="fas fa-file-alt"></i>
-                    <h3>AI Summarization</h3>
-                    <p>Concise, intelligent summaries of meetings and long emails, highlighting key points.</p>
+                    <i class="fas fa-brain"></i>
+                    <div>
+                        <h3>Focus Without Distraction</h3>
+                        <p>Engage fully in meetings or lectures, knowing notes are being taken care of automatically.</p>
+                    </div>
                 </div>
+                 <!-- Feature 3 -->
+                <div class="feature-item">
+                    <i class="fas fa-file-invoice"></i>
+                    <div>
+                        <h3>Structured Notes, Ready Fast</h3>
+                        <p>Receive well-organized and structured notes immediately after your session concludes.</p>
+                    </div>
+                </div>
+                <!-- Feature 4 -->
+                <div class="feature-item">
+                    <i class="fas fa-bell"></i>
+                    <div>
+                        <h3>AI-Powered Reminders</h3>
+                        <p>Get automatic reminders for important dates, deadlines, and future meetings detected by AI.</p>
+                    </div>
+                </div>
+                <!-- Feature 5 -->
+                <div class="feature-item">
+                    <i class="fas fa-smile-wink"></i>
+                    <div>
+                        <h3>Understand Team Mood</h3>
+                        <p>Live emotion and sentiment analysis provide insights into team engagement and atmosphere.</p>
+                    </div>
+                </div>
+                <!-- Feature 6 -->
                 <div class="feature-item">
                     <i class="fas fa-envelope-open-text"></i>
-                    <h3>Email Urgency Detection</h3>
-                    <p>Automatically identifies and prioritizes important emails based on urgency.</p>
+                    <div>
+                        <h3>Grasp Long Emails Quickly</h3>
+                        <p>Email summarization helps you understand the essence of lengthy threads in moments.</p>
+                    </div>
                 </div>
+                <!-- Feature 7 -->
                 <div class="feature-item">
-                    <i class="fas fa-smile-beam"></i>
-                    <h3>Emotion/Sentiment Analysis</h3>
-                    <p>Gain insights into meeting dynamics with sentiment analysis of discussions.</p>
+                    <i class="fas fa-exclamation-circle"></i>
+                    <div>
+                        <h3>Prioritize Emails Better</h3>
+                        <p>Identify urgency and relevance in emails automatically to focus on what matters most.</p>
+                    </div>
                 </div>
+                <!-- Feature 8 -->
                 <div class="feature-item">
-                    <i class="fas fa-tasks"></i>
-                    <h3>Smart Meeting Notes</h3>
-                    <p>Generates notes with action items, deadlines, and timestamps for easy follow-up.</p>
+                    <i class="fas fa-user-shield"></i>
+                    <div>
+                        <h3>Control Your Assistant</h3>
+                        <p>Manage the assistant before or during meetings, enhancing comfort and privacy control.</p>
+                    </div>
                 </div>
+                <!-- Feature 9 -->
                 <div class="feature-item">
-                    <i class="fas fa-cogs"></i>
-                    <h3>Productivity Tool Integration</h3>
-                    <p>Seamlessly connect with Slack, Notion, Trello, and more to streamline workflows.</p>
+                    <i class="fas fa-lock"></i>
+                    <div>
+                        <h3>Full Data Protection</h3>
+                        <p>Industry-leading GDPR and CCPA compliance ensures your data is always secure.</p>
+                    </div>
                 </div>
+                 <!-- Feature 10 -->
                 <div class="feature-item">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>GDPR/CCPA Compliant</h3>
-                    <p>Your privacy is paramount. Full data control and compliance with privacy regulations.</p>
+                    <i class="fas fa-puzzle-piece"></i>
+                    <div>
+                        <h3>Seamless Integration</h3>
+                        <p>Connect effortlessly with productivity tools like Slack, Notion, Trello, and more.</p>
+                    </div>
                 </div>
+                 <!-- Feature 11 -->
+                <div class="feature-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <div>
+                        <h3>Centralized Dashboard</h3>
+                        <p>Access all transcripts, summaries, and emotional insights from one convenient place.</p>
+                    </div>
+                </div>
+                 <!-- Feature 12 -->
+                <div class="feature-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3>Jump to Key Points</h3>
+                        <p>AI-generated timestamps and bookmarks let you navigate directly to crucial discussion moments.</p>
+                    </div>
+                </div>
+                <!-- Feature 13 -->
                  <div class="feature-item">
-                    <i class="fas fa-search"></i>
-                    <h3>Searchable Archives</h3>
-                    <p>Easily search and retrieve past meeting transcripts and summaries when you need them.</p>
+                    <i class="fas fa-rocket"></i>
+                    <div>
+                        <h3>Boost Productivity</h3>
+                        <p>Automate tedious documentation and task tracking to free up valuable time.</p>
+                    </div>
+                </div>
+                 <!-- Feature 14 -->
+                <div class="feature-item">
+                    <i class="fas fa-battery-quarter"></i> <!-- Represents reduced fatigue -->
+                    <div>
+                        <h3>Reduce Meeting Fatigue</h3>
+                        <p>Review concise highlights instead of lengthy full recordings, saving mental energy.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Benefits Section -->
+    <!-- Benefits Section (Kept original content as requested) -->
     <section id="benefits">
         <div class="container">
             <h2>User Benefits</h2>
@@ -641,41 +930,193 @@
         </div>
     </section>
 
-    <!-- Use Case Scenarios Section -->
+    <!-- Use Case Scenarios Section (Updated Content) -->
     <section id="use-cases">
         <div class="container">
-            <h2>Use Case Scenarios</h2>
+            <h2>How People Use Summarize AI</h2>
             <div class="use-cases-grid">
+                <!-- Use Case 1 -->
+                <div class="use-case-card">
+                    <i class="fas fa-project-diagram"></i>
+                    <h4>Project Manager</h4>
+                    <p>Generates meeting summaries and task lists to share instantly, cutting down follow-up emails.</p>
+                </div>
+                <!-- Use Case 2 -->
                 <div class="use-case-card">
                     <i class="fas fa-user-graduate"></i>
-                    <h4>Students</h4>
-                    <p>Ace lectures and study groups by capturing every detail and generating organized study notes effortlessly.</p>
+                    <h4>College Student</h4>
+                    <p>Captures lecture notes automatically, receiving summaries and key dates for easy revision.</p>
                 </div>
+                <!-- Use Case 3 -->
                 <div class="use-case-card">
-                    <i class="fas fa-users"></i>
-                    <h4>Corporate Teams</h4>
-                    <p>Streamline project meetings, client calls, and internal discussions, ensuring everyone is on the same page.</p>
+                    <i class="fas fa-lightbulb"></i>
+                    <h4>Startup Founder</h4>
+                    <p>Summarizes long investor emails to extract key points and deadlines, improving response times.</p>
                 </div>
+                <!-- Use Case 4 -->
                 <div class="use-case-card">
-                    <i class="fas fa-briefcase"></i>
-                    <h4>Busy Professionals</h4>
-                    <p>Manage back-to-back meetings and overflowing inboxes with quick summaries and prioritized tasks.</p>
+                    <i class="fas fa-balance-scale"></i> <!-- Could also use fa-users -->
+                    <h4>HR Manager</h4>
+                    <p>Uses emotion analysis during policy sessions to gauge employee sentiment for better engagement.</p>
                 </div>
+                <!-- Use Case 5 -->
                 <div class="use-case-card">
                     <i class="fas fa-laptop-house"></i>
-                    <h4>Remote Teams</h4>
-                    <p>Bridge communication gaps and maintain clarity across distributed teams with accessible meeting records.</p>
+                    <h4>Remote Worker</h4>
+                    <p>Pushes action items from Zoom calls directly to Trello via integration, streamlining task management.</p>
+                </div>
+                <!-- Use Case 6 -->
+                <div class="use-case-card">
+                    <i class="fas fa-gavel"></i>
+                    <h4>Legal Professional</h4>
+                    <p>Controls transcription start/stop during client calls based on confidentiality needs.</p>
+                </div>
+                <!-- Use Case 7 -->
+                 <div class="use-case-card">
+                    <i class="fas fa-chalkboard-teacher"></i> <!-- Now fa-person-chalkboard -->
+                    <h4>Teacher</h4>
+                    <p>Generates structured class notes and automatically detects announcements like exam dates.</p>
+                </div>
+                 <!-- Use Case 8 -->
+                 <div class="use-case-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h4>Executive Assistant</h4>
+                    <p>Uses timestamps and deadline detection to schedule follow-ups and prepare executive briefs.</p>
+                </div>
+                 <!-- Use Case 9 -->
+                 <div class="use-case-card">
+                    <i class="fas fa-users-cog"></i> <!-- Representing team collaboration/review -->
+                    <h4>Content Team</h4>
+                    <p>Reviews only bookmarked highlights from brainstorm calls, drastically reducing review time.</p>
+                </div>
+                <!-- Use Case 10 -->
+                 <div class="use-case-card">
+                    <i class="fas fa-heartbeat"></i> <!-- Represents healthcare -->
+                    <h4>Healthcare Startup</h4>
+                    <p>Uses secure, GDPR/CCPA compliant transcription for sensitive client communications.</p>
                 </div>
             </div>
         </div>
     </section>
+
+     <!-- Testimonials Section (New) -->
+    <section id="testimonials">
+        <div class="container">
+            <h2>What Our Users Say</h2>
+            <div class="testimonials-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                     <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-quote">"Summarize AI has been a game-changer for our team meetings. The accuracy of the summaries and action items saves us hours each week!"</p>
+                    <div class="testimonial-author">
+                        Alex Johnson
+                        <span>Project Manager, Tech Innovations Inc.</span>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                     <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="testimonial-quote">"As a student, I can finally focus on understanding lectures instead of frantically typing notes. The generated summaries are perfect for studying."</p>
+                     <div class="testimonial-author">
+                        Samantha Lee
+                        <span>University Student</span>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-quote">"The email summarization feature alone is worth it. It helps me cut through the noise in my inbox and focus on critical communications."</p>
+                     <div class="testimonial-author">
+                        David Chen
+                        <span>Startup Founder, Creative Solutions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section (New) -->
+    <section id="pricing">
+        <div class="container">
+            <h2>Choose Your Plan</h2>
+            <div class="pricing-grid">
+                <!-- Plan 1: Free -->
+                <div class="pricing-card">
+                    <h3 class="plan-name">Free</h3>
+                    <div class="plan-price">$0<span>/month</span></div>
+                    <p class="plan-description">Perfect for individuals getting started with AI summarization.</p>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Real-time Transcription (Up to 3 meetings/mo)</li>
+                        <li><i class="fas fa-check"></i> Basic AI Summarization</li>
+                        <li><i class="fas fa-check"></i> Email Summarization (5 emails/day)</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Action Item Detection</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Sentiment Analysis</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Integrations</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary">Sign Up for Free</a>
+                </div>
+
+                <!-- Plan 2: Pro (Popular) -->
+                <div class="pricing-card popular">
+                     <span style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--secondary-color); color: white; padding: 3px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">POPULAR</span>
+                    <h3 class="plan-name">Pro</h3>
+                    <div class="plan-price">$15<span>/user/month</span></div>
+                    <p class="plan-description">Ideal for professionals and teams needing advanced features.</p>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Unlimited Real-time Transcription</li>
+                        <li><i class="fas fa-check"></i> Advanced AI Summarization</li>
+                        <li><i class="fas fa-check"></i> Unlimited Email Summarization</li>
+                        <li><i class="fas fa-check"></i> Action Item Detection & Tracking</li>
+                        <li><i class="fas fa-check"></i> Emotion & Sentiment Analysis</li>
+                        <li><i class="fas fa-check"></i> Slack, Notion, Trello Integrations</li>
+                        <li><i class="fas fa-check"></i> Priority Support</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Get Started with Pro</a>
+                </div>
+
+                <!-- Plan 3: Enterprise -->
+                <div class="pricing-card">
+                    <h3 class="plan-name">Enterprise</h3>
+                    <div class="plan-price">Custom<span></span></div>
+                    <p class="plan-description">Tailored solutions for large organizations with specific needs.</p>
+                    <ul class="plan-features">
+                         <li><i class="fas fa-check"></i> Everything in Pro, plus:</li>
+                        <li><i class="fas fa-check"></i> Volume Discounts</li>
+                        <li><i class="fas fa-check"></i> Custom Integrations</li>
+                        <li><i class="fas fa-check"></i> Advanced Security & Compliance</li>
+                        <li><i class="fas fa-check"></i> Dedicated Account Manager</li>
+                        <li><i class="fas fa-check"></i> API Access</li>
+                        <li><i class="fas fa-check"></i> On-Premise Option</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Contact Section (New - Button) -->
+    <section id="contact">
+        <div class="container">
+            <h2>Have Questions?</h2>
+            <p>Our team is ready to help you find the perfect solution or answer any questions you might have about Summarize AI.</p>
+            <a href="mailto:support@summarizeai-example.com?subject=Inquiry%20about%20Summarize%20AI" class="btn btn-primary">Contact Us</a>
+            <!-- Replace mailto with a link to a contact page if you prefer -->
+        </div>
+    </section>
+
 
     <!-- Final CTA Section -->
     <section id="cta">
         <div class="container">
             <h2>Ready to make every meeting and email count?</h2>
             <p>Sign up for free and let AI take the notes while you focus on what matters.</p>
-            <a href="#" class="btn btn-cta">Get Started Now</a> <!-- Could be a link to a sign-up page -->
+            <a href="#" class="btn btn-cta">Get Started Now</a> <!-- Link to sign-up -->
         </div>
     </section>
 
@@ -691,12 +1132,13 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const navLinks = document.getElementById('navLinks');
-                if (this.hash !== "") {
+                // Check if the link is truly an anchor on the same page
+                if (this.hash !== "" && document.querySelector(this.hash)) {
                     e.preventDefault();
                     const hash = this.hash;
                     const targetElement = document.querySelector(hash);
+
                     if (targetElement) {
-                        // Calculate offset for fixed navbar
                         const navbarHeight = document.querySelector('.navbar').offsetHeight;
                         const elementPosition = targetElement.getBoundingClientRect().top;
                         const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
@@ -705,10 +1147,21 @@
                             top: offsetPosition,
                             behavior: 'smooth'
                         });
+
+                        // Add active class to clicked nav link (optional)
+                        // Remove active class from all links first
+                        // document.querySelectorAll('.nav-links li a').forEach(link => link.classList.remove('active'));
+                        // Add active class to the clicked link
+                        // if(!this.classList.contains('btn')) { // Don't highlight buttons
+                        //    this.classList.add('active');
+                        // }
+
                     }
                 }
-                 // Close mobile menu if open and a link is clicked
-                if (navLinks.classList.contains('active') && !this.classList.contains('btn-primary')) { // Exclude the 'Get Started' button in nav from closing
+
+                 // Close mobile menu if open and a link (not a button in nav) is clicked
+                 // Check if mobile menu is actually active before trying to close
+                if (navLinks.classList.contains('active') && !this.classList.contains('btn')) {
                     navLinks.classList.remove('active');
                     document.getElementById('mobileMenuToggle').setAttribute('aria-expanded', 'false');
                     document.querySelector('.mobile-menu-toggle i').classList.replace('fa-times', 'fa-bars');
@@ -725,13 +1178,8 @@
             navLinks.classList.toggle('active');
             const isActive = navLinks.classList.contains('active');
             mobileMenuToggle.setAttribute('aria-expanded', isActive);
-            if (isActive) {
-                hamburgerIcon.classList.remove('fa-bars');
-                hamburgerIcon.classList.add('fa-times');
-            } else {
-                hamburgerIcon.classList.remove('fa-times');
-                hamburgerIcon.classList.add('fa-bars');
-            }
+            hamburgerIcon.classList.toggle('fa-bars', !isActive);
+            hamburgerIcon.classList.toggle('fa-times', isActive);
         });
 
         // Optional: Close mobile menu when clicking outside of it
@@ -746,6 +1194,33 @@
                 hamburgerIcon.classList.add('fa-bars');
             }
         });
+
+        // Optional: Highlight nav link based on scroll position
+        // This requires a bit more logic and might be overkill for a simple page
+        // const sections = document.querySelectorAll('section[id]');
+        // window.addEventListener('scroll', navHighlighter);
+        // function navHighlighter() {
+        //     let scrollY = window.pageYOffset;
+        //     const navbarHeight = document.querySelector('.navbar').offsetHeight;
+        //     sections.forEach(current => {
+        //         const sectionHeight = current.offsetHeight;
+        //         const sectionTop = current.offsetTop - navbarHeight - 50; // Adjust offset as needed
+        //         let sectionId = current.getAttribute('id');
+        //         let navLink = document.querySelector('.nav-links a[href*=' + sectionId + ']');
+        //         if(navLink && !navLink.classList.contains('btn')) { // Ensure it's a real nav link, not a button
+        //             if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
+        //                 document.querySelectorAll('.nav-links li a').forEach(link => link.classList.remove('active'));
+        //                 navLink.classList.add('active');
+        //             } else {
+        //                  navLink.classList.remove('active');
+        //             }
+        //         }
+        //     });
+        //     // Handle case where scroll is at the top
+        //     if (scrollY < sections[0].offsetTop - navbarHeight) {
+        //         document.querySelectorAll('.nav-links li a').forEach(link => link.classList.remove('active'));
+        //     }
+        // }
 
     </script>
 
