@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summarize AI - AI-Powered Meeting & Email Assistant</title>
+    <meta name="description" content="Summarize AI helps you transcribe, summarize, and analyze meetings and emails in real-time. Boost your productivity today!">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #6C63FF; /* Purple */
+            --secondary-color: #00C9A7; /* Teal */
+            --dark-purple: #4A43B3; /* Darker Purple for CTA background */
+            --text-color: #333;
+            --text-light: #555;
+            --heading-color: #222;
+            --bg-white: #FFFFFF;
+            --bg-light-gray: #f8f9fa;
+            --bg-footer-gray: #ebebeb;
+            --border-color: #e0e0e0;
+            --navbar-height: 70px; /* Define navbar height */
+        }
+
+        /* Basic Reset & Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px; /* Base font size */
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-white);
+            padding-top: var(--navbar-height); /* Offset for fixed navbar */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--heading-color);
+            margin-bottom: 0.75em;
+        }
+
+        h1 { font-size: 2.8rem; line-height: 1.2; }
+        h2 { font-size: 2.2rem; margin-bottom: 1em; text-align: center; }
+        h3 { font-size: 1.5rem; }
+        h4 { font-size: 1.2rem; }
+
+        p {
+            margin-bottom: 1em;
+            color: var(--text-light);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8em 1.8em;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+        }
+        .btn-primary:hover {
+            background-color: #5a52e0; /* Slightly darker purple */
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+        }
+
+        .btn-cta {
+            background-color: var(--secondary-color);
+            color: var(--bg-white);
+            padding: 1em 2.5em;
+            font-size: 1.1rem;
+        }
+        .btn-cta:hover {
+            background-color: #00b090; /* Slightly darker teal */
+        }
+
+        /* Section Padding */
+        section {
+            padding: 60px 0;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            background-color: var(--bg-white);
+            height: var(--navbar-height);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-logo a {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-links li a {
+            font-family: 'Open Sans', sans-serif;
+            /* color: var(--text-light); */
+            font-weight: 600;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+        .nav-links li a:hover,
+        .nav-links li a.active { /* You can add 'active' class via JS if needed for current section */
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .mobile-menu-toggle {
+            display: none; /* Hidden by default, shown on mobile */
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            background-color: var(--bg-white);
+            padding-top: 60px; /* Adjusted padding, body already has navbar height */
+            padding-bottom: 80px;
+            min-height: calc(100vh - var(--navbar-height)); /* Optional: make hero take full viewport height */
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center; /* Helps if icon is inline-block */
+            display: flex; /* For better centering */
+            justify-content: center; /* Horizontal centering */
+            align-items: center; /* Vertical centering */
+        }
+
+        .hero-main-icon {
+            font-size: 10rem; /* Adjust size as needed, e.g., 8rem, 12rem, 150px */
+            color: var(--primary-color); /* Use your primary tech color */
+            /* Add some margin if needed, e.g., margin-bottom for spacing on mobile when stacked */
+        }
+
+
+        /* --- Hero Section --- */
+        #hero {
+            background-color: var(--bg-white);
+            padding-top: 60px;
+            padding-bottom: 80px;
+            min-height: calc(100vh - var(--navbar-height));
+            display: flex; /* This is already here, ensures hero-content-wrapper can use flex properties */
+            align-items: center; /* This is already here */
+        }
+        .hero-image img {
+            max-width: 500px; /* Control max image size */
+            border-radius: 10px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+        .hero-text h1 {
+            color: var(--primary-color);
+        }
+        .hero-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5em;
+        }
+        .hero-buttons .btn {
+            margin-right: 15px;
+            margin-bottom: 10px; /* For stacking on mobile */
+        }
+
+
+        /* --- Features Section --- */
+        #features {
+            background-color: var(--bg-light-gray);
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .feature-item {
+            background-color: var(--bg-white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+            text-align: left;
+        }
+        .feature-item i {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin-right: 15px;
+            vertical-align: middle;
+            width: 30px; /* Ensure consistent spacing */
+        }
+        .feature-item h3 {
+            display: inline;
+            vertical-align: middle;
+            margin-bottom: 0; /* Reset as it's inline */
+            font-size: 1.3rem;
+        }
+        .feature-item p {
+            margin-top: 15px;
+            font-size: 0.95rem;
+            padding-left: 45px; /* Align with text next to icon */
+        }
+
+        /* --- Benefits Section --- */
+        #benefits {
+            background-color: var(--bg-white);
+        }
+        .benefits-list {
+            max-width: 800px;
+            margin: 30px auto 0 auto;
+            padding-left: 0;
+        }
+        .benefits-list li {
+            padding: 10px 0 10px 35px;
+            position: relative;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+        .benefits-list li::before {
+            content: '\f00c'; /* Font Awesome check icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+            top: 12px;
+            font-size: 1.2rem;
+        }
+
+        /* --- Use Case Scenarios Section --- */
+        #use-cases {
+            background-color: var(--bg-light-gray);
+        }
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .use-case-card {
+            background-color: var(--bg-white);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .use-case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .use-case-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .use-case-card h4 {
+            margin-bottom: 10px;
+            font-size: 1.25rem;
+        }
+        .use-case-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* --- Final CTA Section --- */
+        #cta {
+            background-color: var(--dark-purple);
+            color: var(--bg-white);
+            text-align: center;
+        }
+        #cta h2 {
+            color: var(--bg-white);
+            font-size: 2rem;
+        }
+        #cta p {
+            color: rgba(255,255,255,0.85);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--bg-footer-gray);
+            color: var(--text-light);
+            text-align: center;
+            padding: 25px 0;
+            font-size: 0.9rem;
+        }
+        footer p {
+            margin-bottom: 0;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.4rem; }
+            h2 { font-size: 2rem; }
+
+            .hero-content-wrapper {
+                gap: 30px;
+            }
+            .hero-image img {
+                max-width: 400px;
+            }
+            .hero-main-icon {
+                font-size: 8rem; /* Slightly smaller icon for medium screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root { --navbar-height: 60px; } /* Slightly smaller navbar on mobile */
+            body { padding-top: var(--navbar-height); }
+
+            .nav-logo a { font-size: 1.6rem; }
+            .nav-links {
+                display: none; /* Hide normal links */
+                flex-direction: column;
+                position: absolute;
+                top: var(--navbar-height);
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-white);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                padding: 15px 0;
+            }
+            .nav-links.active {
+                display: flex; /* Show when active */
+            }
+            .nav-links li {
+                margin: 10px 0;
+                text-align: center;
+                width: 100%;
+            }
+            .nav-links li a {
+                padding: 10px 15px;
+                display: block;
+            }
+            .nav-links li a:hover,
+            .nav-links li a.active {
+                border-bottom: none; /* Remove border for mobile links, color is enough */
+                background-color: var(--bg-light-gray);
+            }
+            .mobile-menu-toggle {
+                display: block; /* Show hamburger */
+            }
+
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.8rem; }
+            section { padding: 40px 0; }
+            #hero { padding-top: 40px; padding-bottom: 60px; min-height: auto; } /* Adjust hero padding again */
+
+
+            .hero-content-wrapper {
+                flex-direction: column-reverse; /* Text above icon on mobile */
+                text-align: center;
+            }
+            .hero-image {
+                margin-bottom: 30px; /* Add space between icon and text when stacked */
+            }
+            .hero-main-icon {
+                font-size: 7rem; /* Smaller for mobile */
+            }
+            .hero-text {
+                margin-bottom: 30px;
+            }
+            .hero-buttons {
+                text-align: center;
+            }
+            .hero-buttons .btn {
+                margin-right: 5px;
+                margin-left: 5px;
+            }
+            .hero-image img {
+                max-width: 300px; /* Further reduce hero image size */
+                margin: 20px auto 0 auto;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr; /* Stack features */
+            }
+            .feature-item {
+                padding: 25px;
+            }
+
+            .use-cases-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+             #cta h2 {
+                font-size: 1.8rem;
+            }
+            #cta p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html { font-size: 15px; }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.6rem; }
+            .btn {
+                padding: 0.7em 1.5em;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .hero-buttons .btn {
+                margin-right: 0;
+                margin-left: 0;
+            }
+            .hero-buttons .btn:last-child {
+                margin-bottom: 0;
+            }
+            .hero-main-icon {
+                font-size: 6rem; /* Even smaller for very small screens */
+            }
+
+            .benefits-list li {
+                font-size: 1rem;
+                padding: 8px 0 8px 30px;
+            }
+            .benefits-list li::before {
+                top: 10px;
+                font-size: 1rem;
+            }
+
+            .use-cases-grid {
+                grid-template-columns: 1fr; /* Stack use cases */
+            }
+            .use-case-card {
+                padding: 25px;
+            }
+            #cta h2 {
+                font-size: 1.6rem;
+            }
+            #cta p {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <div class="nav-logo">
+                <a href="#">Summarize AI</a>
+            </div>
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="#use-cases">Use Cases</a></li>
+                    <li><a href="#cta" class="btn btn-primary" style="margin-left: 15px; padding: 0.6em 1.2em; text-decoration-color: white;">Get Started</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content-wrapper">
+                <div class="hero-image">
+                    <!-- Icon on the Left -->
+                    <i class="fas fa-users-cog hero-main-icon"></i>
+                </div>
+                <div class="hero-text">
+                    <!-- Text on the Right -->
+                    <h1>Meet Summarize AI</h1>
+                    <p>Your intelligent assistant for real-time meeting transcription, insightful summarization, and enhanced productivity. Focus on the conversation, let us handle the notes.</p>
+                    <div class="hero-buttons">
+                        <a href="#cta" class="btn btn-primary">Get Started</a>
+                        <a href="#features" class="btn btn-secondary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <h2>Why Choose Summarize AI?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-microphone-alt"></i>
+                    <h3>Real-time Transcription</h3>
+                    <p>Accurate, live transcription of your meetings, so you never miss a word.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>AI Summarization</h3>
+                    <p>Concise, intelligent summaries of meetings and long emails, highlighting key points.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-envelope-open-text"></i>
+                    <h3>Email Urgency Detection</h3>
+                    <p>Automatically identifies and prioritizes important emails based on urgency.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-smile-beam"></i>
+                    <h3>Emotion/Sentiment Analysis</h3>
+                    <p>Gain insights into meeting dynamics with sentiment analysis of discussions.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-tasks"></i>
+                    <h3>Smart Meeting Notes</h3>
+                    <p>Generates notes with action items, deadlines, and timestamps for easy follow-up.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Productivity Tool Integration</h3>
+                    <p>Seamlessly connect with Slack, Notion, Trello, and more to streamline workflows.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>GDPR/CCPA Compliant</h3>
+                    <p>Your privacy is paramount. Full data control and compliance with privacy regulations.</p>
+                </div>
+                 <div class="feature-item">
+                    <i class="fas fa-search"></i>
+                    <h3>Searchable Archives</h3>
+                    <p>Easily search and retrieve past meeting transcripts and summaries when you need them.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits">
+        <div class="container">
+            <h2>User Benefits</h2>
+            <ul class="benefits-list">
+                <li>Save hours on manual note-taking and summarization.</li>
+                <li>Improve meeting focus and active participation.</li>
+                <li>Never miss critical action items or decisions.</li>
+                <li>Enhance team collaboration and alignment.</li>
+                <li>Quickly catch up on missed meetings or long email threads.</li>
+                <li>Make data-driven decisions with sentiment insights.</li>
+                <li>Boost overall productivity and efficiency.</li>
+                <li>Ensure clear accountability with assigned action items.</li>
+                <li>Access meeting intelligence anytime, anywhere.</li>
+                <li>Reduce meeting fatigue and information overload.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Use Case Scenarios Section -->
+    <section id="use-cases">
+        <div class="container">
+            <h2>Use Case Scenarios</h2>
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <i class="fas fa-user-graduate"></i>
+                    <h4>Students</h4>
+                    <p>Ace lectures and study groups by capturing every detail and generating organized study notes effortlessly.</p>
+                </div>
+                <div class="use-case-card">
+                    <i class="fas fa-users"></i>
+                    <h4>Corporate Teams</h4>
+                    <p>Streamline project meetings, client calls, and internal discussions, ensuring everyone is on the same page.</p>
+                </div>
+                <div class="use-case-card">
+                    <i class="fas fa-briefcase"></i>
+                    <h4>Busy Professionals</h4>
+                    <p>Manage back-to-back meetings and overflowing inboxes with quick summaries and prioritized tasks.</p>
+                </div>
+                <div class="use-case-card">
+                    <i class="fas fa-laptop-house"></i>
+                    <h4>Remote Teams</h4>
+                    <p>Bridge communication gaps and maintain clarity across distributed teams with accessible meeting records.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="cta">
+        <div class="container">
+            <h2>Ready to make every meeting and email count?</h2>
+            <p>Sign up for free and let AI take the notes while you focus on what matters.</p>
+            <a href="#" class="btn btn-cta">Get Started Now</a> <!-- Could be a link to a sign-up page -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Summarize AI. Made with <span style="color: #e25555;">♥</span> by the Summarize AI Team</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const navLinks = document.getElementById('navLinks');
+                if (this.hash !== "") {
+                    e.preventDefault();
+                    const hash = this.hash;
+                    const targetElement = document.querySelector(hash);
+                    if (targetElement) {
+                        // Calculate offset for fixed navbar
+                        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+                 // Close mobile menu if open and a link is clicked
+                if (navLinks.classList.contains('active') && !this.classList.contains('btn-primary')) { // Exclude the 'Get Started' button in nav from closing
+                    navLinks.classList.remove('active');
+                    document.getElementById('mobileMenuToggle').setAttribute('aria-expanded', 'false');
+                    document.querySelector('.mobile-menu-toggle i').classList.replace('fa-times', 'fa-bars');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+        const hamburgerIcon = mobileMenuToggle.querySelector('i');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const isActive = navLinks.classList.contains('active');
+            mobileMenuToggle.setAttribute('aria-expanded', isActive);
+            if (isActive) {
+                hamburgerIcon.classList.remove('fa-bars');
+                hamburgerIcon.classList.add('fa-times');
+            } else {
+                hamburgerIcon.classList.remove('fa-times');
+                hamburgerIcon.classList.add('fa-bars');
+            }
+        });
+
+        // Optional: Close mobile menu when clicking outside of it
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = navLinks.contains(event.target);
+            const isClickOnToggle = mobileMenuToggle.contains(event.target);
+
+            if (!isClickInsideNav && !isClickOnToggle && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                hamburgerIcon.classList.remove('fa-times');
+                hamburgerIcon.classList.add('fa-bars');
+            }
+        });
+
+    </script>
+
+</body>
+</html>
